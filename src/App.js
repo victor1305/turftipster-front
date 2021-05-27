@@ -32,13 +32,19 @@ function App(props) {
   }, [props])
 
   const fetchUser = () => {
-    authService
-      .isLoggedIn()
-      .then(response => 
-        loggedInUser === null && updateUserState({
-          loggedInUser: response.data
-        }))
-      .catch(err => console.log(err.response.data.message))
+    if (loggedInUser === null) {
+      authService
+        .isLoggedIn()
+        .then(response => updateUserState(response.data))
+        .catch(() => updateUserState(null))
+    }
+    // authService
+    //   .isLoggedIn()
+    //   .then(response => 
+    //     loggedInUser === null && updateUserState({
+    //       loggedInUser: response.data
+    //     }))
+    //   .catch(err => console.log(err.response.data.message))
   }
 
   return (
