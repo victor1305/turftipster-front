@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap'
 import BetService from '../../../service/BetService'
 
+import DotLoader from "react-spinners/DotLoader";
+import { css } from "@emotion/core";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
 const StatsStakes = (props) => {
     
     const betservice = new BetService()
@@ -10,19 +19,26 @@ const StatsStakes = (props) => {
 
     const [ stakes, updateStake ] = useState({})
 
+    const [ spinner, updateSpinner ] = useState(true)
+
     const stakesTotalArray = Object.values(stakes)
     const stakesArray = stakesTotalArray.filter(elm => (elm.bets > 0))
 
     useEffect(() => {
 
-        loadData()       
+        loadData()      
 
     // eslint-disable-next-line
     }, [props])
 
     useEffect(() => {
 
-        updateValues()       
+        updateValues()  
+        
+        setTimeout(() => {
+            updateSpinner(false)  
+        }, 3000)
+         
 
     // eslint-disable-next-line
     }, [betList])
@@ -326,6 +342,18 @@ const StatsStakes = (props) => {
         <>
             <h2 className = "stats-title" id= "title">Stats {props.statYear} por Stake</h2>
             <div className = "table-stats-container">
+            {spinner ?
+                <div className="sweet-loading spinner spinner-container">
+                    <DotLoader
+                        css={override}
+                            height={60}
+                            width={8}
+                        size = {80}
+                        color={"#38A700"}
+                        loading={spinner}
+                    />
+                </div>
+            :
                 <Table striped bordered hover variant="dark" size = "sm" className = "table" responsive = "md">
                     <thead>
                         <tr>
@@ -340,9 +368,10 @@ const StatsStakes = (props) => {
                         <th>Uds Ganadas</th>
                         </tr>
                     </thead>
-                    {stakesArray.map((item => (
-                    <tbody key = {item.stake}>
-                        <tr>
+                    
+                    <tbody >
+                        {stakesArray.map((item => (
+                        <tr key = {item.stake}>
                             <td>{item.stake}</td>
                             <td>{item.bets}</td>
                             <td>{item.wins}</td>
@@ -353,9 +382,10 @@ const StatsStakes = (props) => {
                             <td className = {item.yield >= 0 ? "stats-green" : item.yield < 0 ? "stats-red" : ""}>{item.yield !== "NaN" ? `${item.yield}%` : "Sin datos"}</td>
                             <td className = {item.profitUds >= 0 ? "stats-green" : "stats-red"}>{item.profitUds}</td>
                         </tr>
+                        )))}
                     </tbody>
-                    )))}
                 </Table>
+            }
             </div>
         </>
     );

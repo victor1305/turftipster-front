@@ -2,158 +2,27 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap'
 import BetService from '../../../service/BetService'
 
+import DotLoader from "react-spinners/DotLoader";
+import { css } from "@emotion/core";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
+
 const StatsNextYears = (props) => {
 
     const betservice = new BetService()
 
     const [ betList, loadBetList ] = useState([])
 
-    const [ year, updateYear ] = useState({
-        january : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        february : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        march : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        april : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        may : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        june : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        july : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        august : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        september : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        october : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        november : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        december : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        },
-        total : {
-            bets: "",
-            wins: "",
-            loss: "",
-            void: "",
-            percent: "",
-            averageStake: "",
-            totalUds: "",
-            profitUds: "",
-            yield: ""
-        }
+    const [ year, updateYear ] = useState({})
 
-    })
+    const [ spinner, updateSpinner ] = useState(true)
+
+    const monthsTotalArray = Object.values(year)
 
     useEffect(() => {
 
@@ -165,6 +34,9 @@ const StatsNextYears = (props) => {
     useEffect(() => {
 
         updateValues()
+        setTimeout(() => {
+            updateSpinner(false)  
+        }, 3000)
 
     // eslint-disable-next-line
     }, [betList])
@@ -317,9 +189,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidJanuary.length,
                 percent: ((betsWinJanuary.length / (betsLossJanuary.length + betsWinJanuary.length)) * 100).toFixed(2),
                 averageStake: (totalStakeJanuary / betsJanuary.length).toFixed(2),
-                totalUds: totalStakeJanuary,
+                totalUds: totalStakeJanuary.toFixed(2),
                 profitUds: januaryProfitUds.toFixed(2),
-                yield: ((januaryProfitUds * 100) / totalStakeJanuary).toFixed(2)
+                yield: ((januaryProfitUds * 100) / totalStakeJanuary).toFixed(2),
+                month: "Enero"
             },
             february: {
                 bets: betsFebruary.length,
@@ -328,9 +201,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidFebruary.length,
                 percent: ((betsWinFebruary.length / (betsLossFebruary.length + betsWinFebruary.length)) * 100).toFixed(2),
                 averageStake: (totalStakeFebruary / betsFebruary.length).toFixed(2),
-                totalUds: totalStakeFebruary,
+                totalUds: totalStakeFebruary.toFixed(2),
                 profitUds: februaryProfitUds.toFixed(2),
-                yield: ((februaryProfitUds * 100) / totalStakeFebruary).toFixed(2)
+                yield: ((februaryProfitUds * 100) / totalStakeFebruary).toFixed(2),
+                month: "Febrero"
             },
             march: {
                 bets: betsMarch.length,
@@ -339,10 +213,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidMarch.length,
                 percent: ((betsWinMarch.length / (betsLossMarch.length + betsWinMarch.length)) * 100).toFixed(2),
                 averageStake: (totalStakeMarch / betsMarch.length).toFixed(2),
-                totalUds: totalStakeMarch,
+                totalUds: totalStakeMarch.toFixed(2),
                 profitUds: marchProfitUds.toFixed(2),
-                yield: ((marchProfitUds * 100) / totalStakeMarch).toFixed(2)
-                
+                yield: ((marchProfitUds * 100) / totalStakeMarch).toFixed(2),
+                month: "Marzo"                
             },
             april: {
                 bets: betsApril.length,
@@ -351,9 +225,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidApril.length,
                 percent: ((betsWinApril.length / (betsLossApril.length + betsWinApril.length)) * 100).toFixed(2),
                 averageStake: (totalStakeApril / betsApril.length).toFixed(2),
-                totalUds: totalStakeApril,
+                totalUds: totalStakeApril.toFixed(2),
                 profitUds: aprilProfitUds.toFixed(2),
-                yield: ((aprilProfitUds * 100) / totalStakeApril).toFixed(2)
+                yield: ((aprilProfitUds * 100) / totalStakeApril).toFixed(2),
+                month: "Abril"
             },
             may: {
                 bets: betsMay.length,
@@ -362,9 +237,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidMay.length,
                 percent: ((betsWinMay.length / (betsLossMay.length + betsWinMay.length)) * 100).toFixed(2),
                 averageStake: (totalStakeMay / betsMay.length).toFixed(2),
-                totalUds: totalStakeMay,
+                totalUds: totalStakeMay.toFixed(2),
                 profitUds: mayProfitUds.toFixed(2),
-                yield: ((mayProfitUds * 100) / totalStakeMay).toFixed(2)
+                yield: ((mayProfitUds * 100) / totalStakeMay).toFixed(2),
+                month: "Mayo"
             },
             june: {
                 bets: betsJune.length,
@@ -373,9 +249,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidJune.length,
                 percent: ((betsWinJune.length / (betsLossJune.length + betsWinJune.length)) * 100).toFixed(2),
                 averageStake: (totalStakeJune / betsJune.length).toFixed(2),
-                totalUds: totalStakeJune,
+                totalUds: totalStakeJune.toFixed(2),
                 profitUds: juneProfitUds.toFixed(2),
-                yield: ((juneProfitUds * 100) / totalStakeJune).toFixed(2)
+                yield: ((juneProfitUds * 100) / totalStakeJune).toFixed(2),
+                month: "Junio"
             },
             july: {
                 bets: betsJuly.length,
@@ -384,9 +261,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidJuly.length,
                 percent: ((betsWinJuly.length / (betsLossJuly.length + betsWinJuly.length)) * 100).toFixed(2),
                 averageStake: (totalStakeJuly / betsJuly.length).toFixed(2),
-                totalUds: totalStakeJuly,
+                totalUds: totalStakeJuly.toFixed(2),
                 profitUds: julyProfitUds.toFixed(2),
-                yield: ((julyProfitUds * 100) / totalStakeJuly).toFixed(2)
+                yield: ((julyProfitUds * 100) / totalStakeJuly).toFixed(2),
+                month: "Julio"
             },
             august: {
                 bets: betsAugust.length,
@@ -395,9 +273,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidAugust.length,
                 percent: ((betsWinAugust.length / (betsLossAugust.length + betsWinAugust.length)) * 100).toFixed(2),
                 averageStake: (totalStakeAugust / betsAugust.length).toFixed(2),
-                totalUds: totalStakeAugust,
+                totalUds: totalStakeAugust.toFixed(2),
                 profitUds: augustProfitUds.toFixed(2),
-                yield: ((augustProfitUds * 100) / totalStakeAugust).toFixed(2)
+                yield: ((augustProfitUds * 100) / totalStakeAugust).toFixed(2),
+                month: "Agosto"
             },
             september: {
                 bets: betsSeptember.length,
@@ -406,9 +285,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidSeptember.length,
                 percent: ((betsWinSeptember.length / (betsLossSeptember.length + betsWinSeptember.length)) * 100).toFixed(2),
                 averageStake: (totalStakeSeptember / betsSeptember.length).toFixed(2),
-                totalUds: totalStakeSeptember,
+                totalUds: totalStakeSeptember.toFixed(2),
                 profitUds: septemberProfitUds.toFixed(2),
-                yield: ((septemberProfitUds * 100) / totalStakeSeptember).toFixed(2)
+                yield: ((septemberProfitUds * 100) / totalStakeSeptember).toFixed(2),
+                month: "Septiembre"
             },
             october: {
                 bets: betsOctober.length,
@@ -417,9 +297,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidOctober.length,
                 percent: ((betsWinOctober.length / (betsLossOctober.length + betsWinOctober.length)) * 100).toFixed(2),
                 averageStake: (totalStakeOctober / betsOctober.length).toFixed(2),
-                totalUds: totalStakeOctober,
+                totalUds: totalStakeOctober.toFixed(2),
                 profitUds: octoberProfitUds.toFixed(2),
-                yield: ((octoberProfitUds * 100) / totalStakeOctober).toFixed(2)
+                yield: ((octoberProfitUds * 100) / totalStakeOctober).toFixed(2),
+                month: "Octubre"
             },
             november: {
                 bets: betsNovember.length,
@@ -428,9 +309,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidNovember.length,
                 percent: ((betsWinNovember.length / (betsLossNovember.length + betsWinNovember.length)) * 100).toFixed(2),
                 averageStake: (totalStakeNovember / betsNovember.length).toFixed(2),
-                totalUds: totalStakeNovember,
+                totalUds: totalStakeNovember.toFixed(2),
                 profitUds: novemberProfitUds.toFixed(2),
-                yield: ((novemberProfitUds * 100) / totalStakeNovember).toFixed(2)
+                yield: ((novemberProfitUds * 100) / totalStakeNovember).toFixed(2),
+                month: "Noviembre"
 
             },
             december: {
@@ -440,9 +322,10 @@ const StatsNextYears = (props) => {
                 void: betsVoidDecember.length,
                 percent: ((betsWinDecember.length / (betsLossDecember.length + betsWinDecember.length)) * 100).toFixed(2),
                 averageStake: (totalStakeDecember / betsDecember.length).toFixed(2),
-                totalUds: totalStakeDecember,
+                totalUds: totalStakeDecember.toFixed(2),
                 profitUds: decemberProfitUds.toFixed(2),
-                yield: ((decemberProfitUds * 100) / totalStakeDecember).toFixed(2)
+                yield: ((decemberProfitUds * 100) / totalStakeDecember).toFixed(2),
+                month: "Diciembre"
             },
             total: {
                 bets: betsYear,
@@ -451,14 +334,12 @@ const StatsNextYears = (props) => {
                 void: betsVoidYear.length,
                 percent: ((betsWinYear.length / (betsLossYear.length + betsWinYear.length)) * 100).toFixed(2),
                 averageStake: (totalStakeYear / betsYear).toFixed(2),
-                totalUds: totalStakeYear,
+                totalUds: totalStakeYear.toFixed(2),
                 profitUds: yearProfitUds.toFixed(2),
-                yield: ((yearProfitUds * 100) / totalStakeYear).toFixed(2)
+                yield: ((yearProfitUds * 100) / totalStakeYear).toFixed(2),
+                month: "Total Año"
             }
         })
-
-
-
     }
     
     return (
@@ -466,182 +347,53 @@ const StatsNextYears = (props) => {
         <Fragment>
             <h2 className = "stats-title" id= "title">Stats {props.statYear}</h2>
             <div className = "table-stats-container">
-            <Table striped bordered hover variant="dark" size = "sm" className = "table" responsive = "md">
-                <thead
-
-                >
-                    <tr>
-                    <th>Mes</th>
-                    <th>Apuestas</th>
-                    <th>Aciertos</th>
-                    <th>Fallos</th>
-                    <th>Nulos</th>
-                    <th>% Acierto</th>
-                    <th>Stake Medio</th>
-                    <th>Uds Jugadas</th>
-                    <th>Yield</th>
-                    <th>Uds Ganadas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Enero</td>
-                        <td>{year.january.bets}</td>
-                        <td>{year.january.wins}</td>
-                        <td>{year.january.loss}</td>
-                        <td>{year.january.void}</td>
-                        <td>{year.january.percent !== "NaN" ? `${year.january.percent}%` : "Sin datos"}</td>
-                        <td>{year.january.averageStake === "NaN" ? "Sin Datos" : year.january.averageStake}</td>
-                        <td>{year.january.totalUds}</td>
-                        <td className = {year.january.yield >= 0 ? "stats-green" : "stats-red"}>{year.january.yield !== "NaN" ? `${year.january.yield}%` : "Sin datos"}</td>
-                        <td className = {year.january.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.january.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Febrero</td>
-                        <td>{year.february.bets}</td>
-                        <td>{year.february.wins}</td>
-                        <td>{year.february.loss}</td>
-                        <td>{year.february.void}</td>
-                        <td>{year.february.percent !== "NaN" ? `${year.february.percent}%` : "Sin datos"}</td>
-                        <td>{year.february.averageStake === "NaN" ? "Sin Datos" : year.february.averageStake}</td>
-                        <td>{year.february.totalUds}</td>
-                        <td className = {year.february.yield >= 0 ? "stats-green" : "stats-red"}>{year.february.yield !== "NaN" ? `${year.february.yield}%` : "Sin datos"}</td>
-                        <td className = {year.february.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.february.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Marzo</td>
-                        <td>{year.march.bets}</td>
-                        <td>{year.march.wins}</td>
-                        <td>{year.march.loss}</td>
-                        <td>{year.march.void}</td>
-                        <td>{year.march.percent !== "NaN" ? `${year.march.percent}%` : "Sin datos"}</td>
-                        <td>{year.march.averageStake === "NaN" ? "Sin Datos" : year.march.averageStake}</td>
-                        <td>{year.march.totalUds}</td>
-                        <td className = {year.march.yield >= 0 ? "stats-green" : "stats-red"}>{year.march.yield !== "NaN" ? `${year.march.yield}%` : "Sin datos"}</td>
-                        <td className = {year.march.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.march.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Abril</td>
-                        <td>{year.april.bets}</td>
-                        <td>{year.april.wins}</td>
-                        <td>{year.april.loss}</td>
-                        <td>{year.april.void}</td>
-                        <td>{year.april.percent !== "NaN" ? `${year.april.percent}%` : "Sin datos"}</td>
-                        <td>{year.april.averageStake === "NaN" ? "Sin Datos" : year.april.averageStake}</td>
-                        <td>{year.april.totalUds}</td>
-                        <td className = {year.april.yield >= 0 ? "stats-green" : "stats-red"}>{year.april.yield !== "NaN" ? `${year.april.yield}%` : "Sin datos"}</td>
-                        <td className = {year.april.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.april.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Mayo</td>
-                        <td>{year.may.bets}</td>
-                        <td>{year.may.wins}</td>
-                        <td>{year.may.loss}</td>
-                        <td>{year.may.void}</td>
-                        <td>{year.may.percent !== "NaN" ? `${year.may.percent}%` : "Sin datos"}</td>
-                        <td>{year.may.averageStake === "NaN" ? "Sin Datos" : year.may.averageStake}</td>
-                        <td>{year.may.totalUds}</td>
-                        <td className = {year.may.yield >= 0 ? "stats-green" : "stats-red"}>{year.may.yield !== "NaN" ? `${year.may.yield}%` : "Sin datos"}</td>
-                        <td className = {year.may.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.may.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Junio</td>
-                        <td>{year.june.bets}</td>
-                        <td>{year.june.wins}</td>
-                        <td>{year.june.loss}</td>
-                        <td>{year.june.void}</td>
-                        <td>{year.june.percent  !== "NaN" ? `${year.june.percent}%` : "Sin datos"}</td>
-                        <td>{year.june.averageStake === "NaN" ? "Sin Datos" : year.june.averageStake}</td>
-                        <td>{year.june.totalUds}</td>
-                        <td className = {year.june.yield >= 0 ? "stats-green" : "stats-red"}>{year.june.yield !== "NaN" ? `${year.june.yield}%` : "Sin datos"}</td>
-                        <td className = {year.june.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.june.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Julio</td>
-                        <td>{year.july.bets}</td>
-                        <td>{year.july.wins}</td>
-                        <td>{year.july.loss}</td>
-                        <td>{year.july.void}</td>
-                        <td>{year.july.percent !== "NaN" ? `${year.july.percent}%` : "Sin datos"}</td>
-                        <td>{year.july.averageStake === "NaN" ? "Sin Datos" : year.july.averageStake}</td>
-                        <td>{year.july.totalUds}</td>
-                        <td className = {year.july.yield >= 0 ? "stats-green" : "stats-red"}>{year.july.yield !== "NaN" ? `${year.july.yield}%` : "Sin datos"}</td>
-                        <td className = {year.july.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.july.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Agosto</td>
-                        <td>{year.august.bets}</td>
-                        <td>{year.august.wins}</td>
-                        <td>{year.august.loss}</td>
-                        <td>{year.august.void}</td>
-                        <td>{year.august.percent !== "NaN" ? `${year.august.percent}%` : "Sin datos"}</td>
-                        <td>{year.august.averageStake === "NaN" ? "Sin Datos" : year.august.averageStake}</td>
-                        <td>{year.august.totalUds}</td>
-                        <td className = {year.august.yield >= 0 ? "stats-green" : "stats-red"}>{year.august.yield !== "NaN" ? `${year.august.yield}%` : "Sin datos"}</td>
-                        <td className = {year.august.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.august.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Septiembre</td>
-                        <td>{year.september.bets}</td>
-                        <td>{year.september.wins}</td>
-                        <td>{year.september.loss}</td>
-                        <td>{year.september.void}</td>
-                        <td>{year.september.percent !== "NaN" ? `${year.september.percent}%` : "Sin datos"}</td>
-                        <td>{year.september.averageStake === "NaN" ? "Sin Datos" : year.september.averageStake}</td>
-                        <td>{year.september.totalUds}</td>
-                        <td className = {year.september.yield >= 0 ? "stats-green" : "stats-red"}>{year.september.yield !== "NaN" ? `${year.september.yield}%` : "Sin datos"}</td>
-                        <td className = {year.september.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.september.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Octubre</td>
-                        <td>{year.october.bets}</td>
-                        <td>{year.october.wins}</td>
-                        <td>{year.october.loss}</td>
-                        <td>{year.october.void}</td>
-                        <td>{year.october.percent !== "NaN" ? `${year.october.percent}%` : "Sin datos"}</td>
-                        <td>{year.october.averageStake === "NaN" ? "Sin Datos" : year.october.averageStake}</td>
-                        <td>{year.october.totalUds}</td>
-                        <td className = {year.october.yield >= 0 ? "stats-green" : "stats-red"}>{year.october.yield !== "NaN" ? `${year.october.yield}%` : "Sin datos"}</td>
-                        <td className = {year.october.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.october.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Noviembre</td>
-                        <td>{year.november.bets}</td>
-                        <td>{year.november.wins}</td>
-                        <td>{year.november.loss}</td>
-                        <td>{year.november.void}</td>
-                        <td>{year.november.percent !== "NaN" ? `${year.november.percent}%` : "Sin datos"}</td>
-                        <td>{year.november.averageStake === "NaN" ? "Sin Datos" : year.november.averageStake}</td>
-                        <td>{year.november.totalUds}</td>
-                        <td className = {year.november.yield >= 0 ? "stats-green" : "stats-red"}>{year.november.yield !== "NaN" ? `${year.november.yield}%` : "Sin datos"}</td>
-                        <td className = {year.november.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.november.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Diciembre</td>
-                        <td>{year.december.bets}</td>
-                        <td>{year.december.wins}</td>
-                        <td>{year.december.loss}</td>
-                        <td>{year.december.void}</td>
-                        <td>{year.december.percent !== "NaN" ? `${year.december.percent}%` : "Sin datos"}</td>
-                        <td>{year.december.averageStake === "NaN" ? "Sin Datos" : year.december.averageStake}</td>
-                        <td>{year.december.totalUds}</td>
-                        <td className = {year.december.yield >= 0 ? "stats-green" : "stats-red"}>{year.december.yield !== "NaN" ? `${year.december.yield}%` : "Sin datos"}</td>
-                        <td className = {year.december.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.december.profitUds}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Año</td>
-                        <td>{year.total.bets}</td>
-                        <td>{year.total.wins}</td>
-                        <td>{year.total.loss}</td>
-                        <td>{year.total.void}</td>
-                        <td>{year.total.percent !== "NaN" ? `${year.total.percent}%` : "Sin Datos"}</td>
-                        <td>{year.total.averageStake === "NaN" ? "Sin Datos" : year.total.averageStake}</td>
-                        <td>{year.total.totalUds}</td>
-                        <td className = {year.total.yield >= 0 ? "stats-green" : "stats-red"}>{year.total.yield !== "NaN" ? `${year.total.yield}%` : "Sin datos"}</td>
-                        <td className = {year.total.profitUds >= 0 ? "stats-green" : "stats-red"}>{year.total.profitUds}</td>
-                    </tr>
-                </tbody>
-            </Table>
+                {spinner ?
+                    <div className="sweet-loading spinner spinner-container">
+                        <DotLoader
+                            css={override}
+                                height={60}
+                                width={8}
+                            size = {80}
+                            color={"#38A700"}
+                            loading={spinner}
+                        />
+                    </div>
+                :
+                    <Table striped bordered hover variant="dark" size = "sm" className = "table" responsive = "md">
+                        <thead>
+                            <tr>
+                            <th>Mes</th>
+                            <th>Apuestas</th>
+                            <th>Aciertos</th>
+                            <th>Fallos</th>
+                            <th>Nulos</th>
+                            <th>% Acierto</th>
+                            <th>Stake Medio</th>
+                            <th>Uds Jugadas</th>
+                            <th>Yield</th>
+                            <th>Uds Ganadas</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            {monthsTotalArray.map((item => (
+                            <tr key = {item.month}>
+                                <td>{item.month}</td>
+                                <td>{item.bets}</td>
+                                <td>{item.wins}</td>
+                                <td>{item.loss}</td>
+                                <td>{item.void}</td>
+                                <td>{item.percent !== "NaN" ? `${item.percent}%` : "N/A"}</td>
+                                <td>{item.averageStake === "NaN" ? "0.00" : item.averageStake}</td>
+                                <td>{item.totalUds}</td>
+                                <td className = {item.yield >= 0 ? "stats-green" : (item.yield < 0 ? "stats-red" : "stats-green")}>{item.yield !== "NaN" ? `${item.yield}%` : "N/A"}</td>
+                                <td className = {item.profitUds >= 0 ? "stats-green" : "stats-red"}>{item.profitUds}</td>
+                            </tr>
+                            )))}
+                        </tbody>
+                        
+                    </Table>
+                }
             </div>
         </Fragment>
 

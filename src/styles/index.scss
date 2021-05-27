@@ -6,7 +6,8 @@ html {
 body {
   font-family: 'Krub', sans-serif;
   background-color: #e8eddf;
-  height: 100%;
+  min-height: 100vh;
+  position: relative;
 }
 
 .header {
@@ -24,12 +25,47 @@ body {
   margin-right: 10%;
 }
 
+.home-stats-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  height: calc(100vh - 101px);
+  z-index: 2;
+  right: 0;
+  margin-right: 15px;
+
+  @media screen and (max-width: 1024px){
+
+    @media only screen and (orientation: landscape) {
+      display: none
+    }
+    
+  }
+}
+
+.img-stats {
+  width: 150px;
+
+  @media screen and (max-width: 760px) {
+    width: 100px;
+    
+  }
+}
+
+
 .home-image {
+  height: calc(100vh - 101px);
   width: 100%;
+  object-fit: cover;
+  position: relative;
 }
 
 .home-article {
   padding-bottom: 1rem;
+  background-color: #e8eddf;
+  z-index: 5;
+  padding-bottom: 122px;
 }
 
 .home-last-bets {
@@ -63,7 +99,7 @@ body {
 .bets-buttons-container {
   text-align: center;
   padding-top: 4rem;
-  padding-bottom: 2rem;
+  padding-bottom: 125px;
 }
 
 .bet-pages-container {
@@ -123,6 +159,13 @@ body {
 
 .card-p {
   margin-bottom: 0.5rem;
+}
+
+.card-p-limit-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 }
 
 .card-p-win {
@@ -185,7 +228,7 @@ body {
 }
 
 .bet-detail-container {
-  padding: 3%;
+  padding: 3% 3% 122px 3%;
   text-align: center;
   box-sizing: border-box;
   min-height: 90vh;
@@ -239,12 +282,17 @@ body {
 }
 
 .detail-back-btn:hover { 
-  margin-bottom: 3px;
+  //margin-bottom: 3px;
+  margin-bottom: 3px;;
   border: 2px solid  #38A700;
 }
 
 .errorMessage {
   color: red;
+}
+
+.stats-container {
+  padding-bottom: 125px;
 }
 
 .stats-title {
@@ -264,7 +312,7 @@ body {
 .stats-h4 {
   text-align: center;
   padding-top: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 2.1rem;
   padding-left: 0.5rem; 
   padding-right: 0.5rem; 
 }
@@ -355,8 +403,16 @@ body {
   padding-bottom: 2%;
 }
 
+.horse-races-section-container {
+  padding-bottom: 125px
+}
+
 .horse-races-first-section{
   border-top: 4px solid #38A700;
+  border-bottom: 4px solid #38A700;
+}
+
+.horse-races-section{
   border-bottom: 4px solid #38A700;
 }
 
@@ -387,7 +443,7 @@ body {
 
 .about-us-container {
   text-align: center;
-  padding: 5% 15% ;
+  padding: 5% 15% 140px 15%;
 }
 
 .about-us-title {
@@ -400,7 +456,7 @@ body {
 }
 
 .section-container {
-  padding: 5% 15%;
+  padding: 5% 15% 140px 15%;
 }
 
 .section-title {
@@ -446,7 +502,7 @@ body {
 }
 
 .horse-race-btn {
-  margin-top: 2px;
+  margin: 1px;
   width: 100px;
   font-size: 0.9rem;
   background-color: transparent;
@@ -469,7 +525,9 @@ body {
 
 .footer-container {
   bottom: 0;
-  clear: both;
+  position: absolute;
+  height: 122px;
+  width: 100%;
 }
 
 .footer-rrss-container {

@@ -68,6 +68,7 @@ const BetModal = (props) => {
         'Amiens',
         'Angers',
         'Argentan',
+        'Auteil',
         'Bordeaux le Bouscat',
         'Cagnes Sur Mer',
         'Chantilly',
@@ -78,10 +79,12 @@ const BetModal = (props) => {
         'Craon',
         'Dax',
         'Deauville',
+        'Delta Downs',
         'Dieppe',
         'Dos Hermanas',
         'Evreux',
         'Fontainebleau',
+        'Gulfstream Park',
         'La Teste de Buch',
         'Le Croise Laroche',
         "Le Lion d'Angers",
@@ -109,10 +112,12 @@ const BetModal = (props) => {
         'Sanlucar',
         'Senonnes-Pouance',
         'Strasbourg',
+        'Tampa Bay',
         'Tarbes',
         'Toulouse',
         'Vichy',
         'Vittel',
+        'Will Rogers Downs',
         'Zarzuela'
     ]
 
