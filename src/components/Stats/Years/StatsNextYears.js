@@ -24,33 +24,28 @@ const StatsNextYears = (props) => {
 
     const monthsTotalArray = Object.values(year)
 
-    useEffect(() => {
-
-        loadData()       
-
+    useEffect(() => {      
+        loadData()            
     // eslint-disable-next-line
     }, [props])
 
     useEffect(() => {
 
         updateValues()
-        setTimeout(() => {
-            updateSpinner(false)  
-        }, 3000)
 
     // eslint-disable-next-line
     }, [betList])
 
     const loadData = () => {
+        updateSpinner(true)
 
         betservice
             .getBetsYear(props.statYear)
             .then(response => (
-                loadBetList(response.data)
-                
+                loadBetList(response.data)               
             ))
+            .then(() => updateSpinner(false) )
             .catch(err => console.log(err))
-
     }
 
     const updateValues = () => {

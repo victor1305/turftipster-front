@@ -55,6 +55,7 @@ const Stats = (props) => {
                 <button className = "stats-btn" value = "2019" onClick = {changeYear}>2019</button>
                 <button className = "stats-btn" value = "2020" onClick = {changeYear}>2020</button>
                 <button className = "stats-btn" value = "2021" onClick = {changeYear}>2021</button>
+                <button className = "stats-btn" value = "2022" onClick = {changeYear}>2022</button>
             </div>
             {statsYear.statYear >= 2021 &&
             <div className = "stats-btn-container">

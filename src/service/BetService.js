@@ -6,9 +6,9 @@ export default class BetService {
 
         this.service = axios.create({
 
-            //baseURL: 'http://localhost:5000/api', //PARA LOCAL
-            baseURL: process.env.REACT_APP_API_URL, //PARA DEPLOY, NO FUNCIONA
-            //baseURL: 'https://turftipsterserver.herokuapp.com/api', //PARA DEPLOY OK
+            //baseURL: 'http://localhost:3030/api', //PARA LOCAL
+            //baseURL: process.env.REACT_APP_API_URL, //PARA DEPLOY, NO FUNCIONA
+            baseURL: 'https://turftipsterserver.herokuapp.com/api', //PARA DEPLOY OK
             withCredentials: true
         })
     }
@@ -16,6 +16,7 @@ export default class BetService {
     saveBet = bet => this.service.post(`/apuestas/crear-apuesta`, bet)
     getNumberBets = () => this.service.get('/apuestas/lista-apuestas/total')
     getAllBets = (limit, skip) => this.service.get(`/apuestas/lista-apuestas?limit=${limit}&skip=${skip}`)
+    getRacecoursesList = () => this.service.get('/apuestas/lista-hipodromos')
     getHomeBets = () => this.service.get('/apuestas')
     getBetsYear = year => this.service.get(`/apuestas/stats/${year}`)
     getOneBet = id => this.service.get(`/apuestas/detalle-apuesta/${id}`)
