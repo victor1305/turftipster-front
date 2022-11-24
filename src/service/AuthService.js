@@ -8,7 +8,7 @@ export default class AuthService {
 
           //baseURL: 'http://localhost:3030/api', //PARA LOCAL
           //baseURL: process.env.REACT_APP_API_URL, //PARA DEPLOY, NO FUNCIONA
-          baseURL: 'https://turftipsterserver.herokuapp.com/api', //PARA DEPLOY OK
+          baseURL: 'https://api-tt.onrender.com/api', //PARA DEPLOY OK
           withCredentials: true,
         });
     }
